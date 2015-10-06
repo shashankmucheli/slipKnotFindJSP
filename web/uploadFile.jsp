@@ -18,6 +18,8 @@
    File file ;
    int maxFileSize = 5000 * 1024;
    int maxMemSize = 5000 * 1024;
+   String name = new String();
+   String chain = new String();
    ServletContext context = pageContext.getServletContext();
    String filePath = context.getInitParameter("file-upload");
    //filePath = "C:\\Users\\Shashank\\Documents\\NetBeansProjects\\Knots\\web\\";
@@ -37,6 +39,7 @@
       ServletFileUpload upload = new ServletFileUpload(factory);
       // maximum file size to be uploaded.
       upload.setSizeMax( maxFileSize );
+      chain = request.getParameter(chain);
       try{
          // Parse the request to get file items.
          List fileItems = upload.parseRequest(request);
@@ -70,12 +73,17 @@
             fi.write( file ) ;
             out.println("Uploaded Filename: " + filePath + 
             fileName + "<br>");
+            name = fileName;
             }
          }
          out.println("</body>");
          out.println("</html>");
-         MyClass knot = new MyClass();
-         out.println("</br>"+knot.testMethod()+"</br>");
+         MyClass m = new MyClass();
+         out.println("<br />"+m.testMethod()+"<br />");
+         
+         KnotFind knot = new KnotFind();
+         out.println("<br />"+knot.initResidual(name,chain)+"<br />");
+         //out.println(chain);
       }catch(Exception ex) {
          System.out.println(ex);
       }

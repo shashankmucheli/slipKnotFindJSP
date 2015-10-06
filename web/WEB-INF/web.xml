@@ -3,7 +3,7 @@
     <context-param>
         <description>Location to store uploaded file</description>
         <param-name>file-upload</param-name>
-        <param-value>G:\Shashank\Dropbox\UMassD\CIS 690\KnotFind\Knots\web\</param-value>
+        <param-value>G:\Shashank\Dropbox\UMassD\CIS 690\KnotFind\Knots\PDB\</param-value>
     </context-param>
     <servlet>
         <servlet-name>UploadServlet</servlet-name>
@@ -13,9 +13,4 @@
         <servlet-name>UploadServlet</servlet-name>
         <url-pattern>/Knots/*</url-pattern>
     </servlet-mapping>
-    <session-config>
-        <session-timeout>
-            30
-        </session-timeout>
-    </session-config>
 </web-app>

@@ -11,6 +11,6 @@ package KnotFind;
  */
 public class MyClass {
     public String testMethod(){
-        return "Hello World!";
+        return "Hello World! Hello World";
     }
  }

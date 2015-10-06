@@ -6,16 +6,15 @@ and open the template in the editor.
 -->
 <html>
 <head>
-<title>File Uploading Form</title>
+<title>Upload PDB</title>
 </head>
-<body>
-<h3>File Upload:</h3>
-Select a file to upload: <br />
-<form action="uploadFile.jsp" method="post"
-                        enctype="multipart/form-data">
-<input type="file" name="file" size="50" />
-<br />
-<input type="submit" value="Upload File" />
-</form>
-</body>
+    <body>
+        <i>Choose a PDB to upload:</i><br />
+        <form action="uploadFile.jsp" method="post" enctype="multipart/form-data">
+            <input type="file" name="file" size="50" />
+            <input type="text" name="chain" size="40" placeholder="Enter the chain to be scanned! Ex: A, X etc.,"/>
+            <br />
+            <input type="submit" value="Upload File" />
+        </form>
+    </body>
 </html>

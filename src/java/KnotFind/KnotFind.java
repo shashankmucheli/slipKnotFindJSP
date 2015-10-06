@@ -42,14 +42,14 @@ public class KnotFind {
    static List<Triangle> tri=new ArrayList();
    static List<Res> res=new ArrayList();
    static boolean _byArea=false;
-   static String Knotfind_PDB = "Knotfind_PDB/", Slipknotfind_PDB = "Slipknotfind_PDB/";
-   //static String PATH="PDB/";     //the path of your pdb file.     e.g. PATH="PDB/";
+   static String Knotfind_PDB = "G:\\Shashank\\Dropbox\\UMassD\\CIS 690\\KnotFind\\Knots\\Knotfind_PDB\\", Slipknotfind_PDB = "G:\\Shashank\\Dropbox\\UMassD\\CIS 690\\KnotFind\\Knots\\Slipknotfind_PDB\\";
+   static String PATH="G:\\Shashank\\Dropbox\\UMassD\\CIS 690\\KnotFind\\Knots\\PDB\\";     //the path of your pdb file.     e.g. PATH="PDB/";
    //static String PDB="1ALK_A.pdb", chain="A";
-   static String PATH,PDB,chain;
+   static String PDB,chain="A";
    int first_atom,last_atom = 0;
    
    
-   public static void main(String[] args) {
+   /*public static void main(String[] args) {
       PATH = args[0];
       PDB = args[1]+".pdb";
       chain = args[2];
@@ -57,10 +57,12 @@ public class KnotFind {
       KnotFind sf=new KnotFind(); 
       sf.initResidual(PDB);
       sf.slipknotFind(res);
-   }
+   }*/
    
-   void initResidual(String name){
+   public String initResidual(String name, String c){
+      //chain = c;
       String fileName=PATH+name;
+      PDB=name;
       File file=new File(fileName);
       BufferedReader reader=null;
       try{
@@ -92,6 +94,8 @@ public class KnotFind {
 //         System.out.println(res.get(i).index+":\t"+res.get(i).x+"\t"+res.get(i).y+"\t"+res.get(i).z);
 //      }
 //      System.out.println("***************************************");
+        String s = slipknotFind(res);
+        return s;
    }
    
    public boolean knotFind(List res){
@@ -115,12 +119,13 @@ public class KnotFind {
 
    }
    
-   public void slipknotFind(List<Res> res){
+   public String slipknotFind(List<Res> res){
       List<Res> r;  //a part of res
       boolean _knotInR=false;
       boolean _knotInRes=true;
       int k3=0;
       int k2=0;
+      String str = " ";
       
       //init r
       for(int i=0;i<res.size()-2;i++){
@@ -128,6 +133,7 @@ public class KnotFind {
          for(int j=i+2;j<res.size();j++){
             if(_knotInR) break;
             System.out.println("checking residues from " + i + " to "+ j +"  ");
+            str+="<br />checking residues from " + i + " to "+ j +"  ";
             r=new ArrayList();
             for(int p=0;p<j+1;p++){
                r.add(res.get(p));
@@ -228,6 +234,8 @@ public class KnotFind {
       else{
          System.out.println("no knots, no slipknots");
       }
+      str+="success";
+      return str;
    }
    
    void simplify(List<Res> res){
@@ -543,9 +551,9 @@ public class KnotFind {
       System.out.println("k3 value : " + k3);*/
       try{
          String trim_filename = Slipknotfind_PDB+"slipknotfind_"+PDB;
-         String load_filename = Slipknotfind_PDB+"load_"+PDB;
+         //String load_filename = Slipknotfind_PDB+"load_"+PDB;
          PrintWriter writer = new PrintWriter(trim_filename, "UTF-8"); 
-         PrintWriter loadfile_writer = new PrintWriter(load_filename, "UTF-8"); 
+         //PrintWriter loadfile_writer = new PrintWriter(load_filename, "UTF-8"); 
          reader=new BufferedReader(new FileReader(file));
          tmp=new BufferedReader(new FileReader(file));
          String temp;
@@ -562,7 +570,7 @@ public class KnotFind {
                             //if(s[2].equals("CA")){
                                     if(residue == first_atom || list.contains(residue) || residue == last_atom){
                                         writer.println(temp);
-                                        loadfile_writer.println(temp);                                        
+                                        //loadfile_writer.println(temp);                                        
                                     }
                                 }
                             //}
@@ -578,7 +586,7 @@ public class KnotFind {
         }
         
         writer.close();
-        loadfile_writer.close();
+        //loadfile_writer.close();
         //System.out.println("Done Creating file at :" + PATH+PDB);
         //System.exit(0);
       }catch(IOException e){

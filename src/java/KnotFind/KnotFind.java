@@ -60,7 +60,7 @@ public class KnotFind {
    }*/
    
    public String initResidual(String name, String c){
-      //chain = c;
+      chain = c;
       String fileName=PATH+name;
       PDB=name;
       File file=new File(fileName);
@@ -145,6 +145,7 @@ public class KnotFind {
                k3=i;
                k2=j;
                System.out.println("find a knot between "+ k3 + " and "+k2);
+               str+="<br />find a knot between "+ k3 + " and "+k2;
             }
          }
       }
@@ -157,9 +158,11 @@ public class KnotFind {
          initTriangle(r);
          
          System.out.println("checking residues from " + i + " to "+ k2 +"  ");
+         str+="<br />checking residues from " + i + " to "+ k2 +"  ";
          if(!knotFind(r)){
             k3=i-1;
             System.out.println("find smallest knot between "+k3 +" to "+ k2);
+            str+="<br />find smallest knot between "+k3 +" to "+ k2;
             ArrayList list = new ArrayList<Integer>();
             for(Res s : r){
                 list.add(s.index);
@@ -195,6 +198,7 @@ public class KnotFind {
                     list.add(s.index);
                 }
                 System.out.println(list);
+                str+="<br />"+list+"<br />";
                 pdb_slipknotfind(list);
             }
          }
@@ -219,6 +223,7 @@ public class KnotFind {
                         list.add(s.index);
                     }
                     System.out.println(list);
+                    str+=list+"<br />";
                     pdb_slipknotfind(list);
                 }
             }
@@ -234,7 +239,7 @@ public class KnotFind {
       else{
          System.out.println("no knots, no slipknots");
       }
-      str+="success";
+      str+="success <br />";
       return str;
    }
    

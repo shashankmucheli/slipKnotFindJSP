@@ -80,6 +80,7 @@
          out.println("</html>");
          
          KnotFind knot = new KnotFind();
+         chain = "A";
          out.println("<br />"+knot.initResidual(name,chain)+"<br />");
          out.println(chain);
       }catch(Exception ex) {

@@ -34,9 +34,10 @@ if (xxxx.length == 5 || xxxx.length == 0) {
 	+'set errorCallback "myCallback";'
 	+'set defaultloadscript "isDssp = false;set defaultVDW babel;if(!h2oOn){display !water}";'
 	+'set zoomlarge false;set echo top left;echo loading XXXX...;refresh;'
-	+'load "file://../PDB/XXXX.pdb";set echo top center;echo XXXX;'
+	+'load "file:///G:/Shashank/Dropbox/UMassD/CIS 690/KnotFind/Knots/XXXX.pdb";set echo top center;echo XXXX;'
 	+'spacefill off;wireframe off;cartoons on;color structure;'
 	script = script.replace(/XXXX/g, xxxx)
+	console.log(window.location);
 } else {
 	script = unescape(xxxx.substring(1))
 }

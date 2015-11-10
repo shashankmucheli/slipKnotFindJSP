@@ -21,7 +21,8 @@ function loadVibs(){
   s+="<option value='"+(i+2)+"'>"+Info[i].freq + " cm-1 "+Info[i].label+"</option>"
  s+="</select>"
  document.getElementById("freqDiv").innerHTML = s
-
+var atomsTest = jmolGetPropertyAsArray("atomList","all");
+console.log(atomsTest);
 }
 
 

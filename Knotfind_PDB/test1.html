@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<script type="text/javascript" src="JSmol.min.js"></script>
+<script src="js/Jmol2.js"></script>
+<script>
+
+
+var jmolApplet0; // set up in HTML table, below
+//jmolInitialize(".");
+
+// logic is set by indicating order of USE -- default is HTML5 for this test page, though
+var use = "HTML5" // JAVA HTML5 WEBGL IMAGE  are all otions
+var s = document.location.search;
+
+
+// Developers: The _debugCode flag is checked in j2s/core/core.z.js, 
+// and, if TRUE, skips loading the core methods, forcing those
+// to be read from their individual directories. Set this
+// true if you want to do some code debugging by inserting
+// System.out.println, document.title, or alert commands
+// anywhere in the Java or Jmol code.
+
+//Jmol._debugCode = (s.indexOf("debugcode") >= 0);
+
+jmol_isReady = function(applet) {
+	Jmol._getElement(applet, "appletdiv").style.border="1px solid black"
+}		
+
+var xxxx = document.location.search
+if (xxxx.indexOf("_USE=") > 0)xxxx = xxxx.substring(0, xxxx.indexOf("_USE=") - 1);
+if (xxxx.length == 5 || xxxx.length == 0) { 
+	xxxx = (xxxx + "?slipknotfind_1ALK_A").substring(1,20)
+	//xxxx = xxxx + "?knotfind_1JS1;slipknotfind_1ALK_A";
+	script = 'h2oOn=true;set animframecallback "jmolscript:if (!selectionHalos) {select model=_modelNumber}";'
+	+'set errorCallback "myCallback";'
+	+'set defaultloadscript "isDssp = false;set defaultVDW babel;if(!h2oOn){display !water}";'
+	+'set zoomlarge false;set echo top left;echo loading XXXX...;refresh;'
+	+'load "XXXX.pdb";set echo top center;echo XXXX;'
+	+'spacefill off;wireframe off;cartoons on;color structure;'
+	+'spacefill only;spacefill 23%;wireframe 0.15,ball&stick;background black'
+	//+'getPropertyAsArray atomList;'
+
+	script = script.replace(/XXXX/g, xxxx)
+	//console.log(window.location);
+} else {
+	script = unescape(xxxx.substring(1))
+}
+
+
+var Info = {
+	width: 600,
+	height: 600,
+	debug: false,
+	color: "black",
+	addSelectionOptions: false,
+	serverURL: "http://chemapps.stolaf.edu/jmol/jsmol/php/jsmol.php",
+	use: "HTML5",
+	j2sPath: "j2s",
+	readyFunction: jmol_isReady,
+	script: script,
+	jarPath: "java",
+	//jarFile: (useSignedApplet ? "JmolAppletSigned.jar" : "JmolApplet.jar"),
+	//jarFile: ("JmolApplet0.jar"),
+	//isSigned: false,
+	//isSigned: useSignedApplet,
+	//disableJ2SLoadMonitor: true,
+	//disableInitialConsole: true
+	//defaultModel: "$dopamine",
+	//console: "none", // default will be jmolApplet0_infodiv
+}
+
+Models = []
+
+template = "xid='%1';load =%1|%2 (%1)"
+function addModel(xxxx, text) {
+ Models.push(template.replace(/\%1/g, xxxx).replace(/%2/g, text).split("|"))
+}
+
+// these are conveniences that mimic behavior of Jmol.js
+function jmolCheckbox(script1, script0,text,ischecked) {Jmol.jmolCheckbox(jmolApplet0,script1, script0, text, ischecked)}
+function jmolButton(script, text) {Jmol.jmolButton(jmolApplet0, script,text)}
+function jmolHtml(s) { document.write(s) };
+function jmolBr() { jmolHtml("<br />") }
+function jmolMenu(a) {Jmol.jmolMenu(jmolApplet0, a)}
+</script>
+</head>
+<body>
+
+<center>
+
+
+<table><tr>
+<td>
+
+<td align=center>
+
+<script>
+
+//jmolApplet0 = Jmol.getApplet("jmolApplet0", Info)
+jmolApplet(600, script);
+//function getAsArray() {
+setTimeout(function(){
+	var atomdata = jmolGetPropertyAsArray("atomInfo","all");
+	var CA = new Array();
+	var atom1 = atomdata[0];
+	//var x = atom1.x;
+	var asd = atom1;
+	console.log(asd);
+	var arrayLength = atomdata.length;
+	for (var i = 0; i < arrayLength; i++) {
+		if (atomdata[i].name == "CA"){
+			CA.push(atomdata[i]);
+		}
+	}
+	console.log(CA);
+	var CALength = CA.length;
+	for (var i = 0; i < CALength-1; i++) {
+		//alert(myStringArray[i]);
+		if(CA[i].name == "CA"){
+			jmolScript("connect (resno="+CA[i].resno+") (resno="+CA[(i+1)].resno+") SINGLE;")
+			console.log(CA[i]);
+		}
+	}
+	jmolScript("color group");
+}, 300);	
+//}
+
+</script>
+</td><td>
+</td></tr>
+<tr>
+<td></td>
+<td align=center>
+
+
+
+
+<script>
+/*jmolBr()
+Jmol.setButtonCss(null,"style='width:180px'")
+jmolButton("color cpk")
+jmolButton("color group")
+jmolButton("color amino")
+jmolButton("color structure")
+jmolBr()
+jmolButton("trace only")
+jmolButton("cartoon only")
+jmolButton("backbone only")
+jmolButton("spacefill only;spacefill 23%;wireframe 0.15","ball&stick")
+jmolBr()
+jmolButton("select alpha; color grey;")*/
+jmolBr()
+</script>
+<!--<div id="getAsArray"><a href="javascript:getAsArray()">Connect the atoms!</a>-->
+</td></tr></table>
+
+</body>
+</html>

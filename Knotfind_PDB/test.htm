@@ -1,12 +1,14 @@
 <!DOCTYPE html>
 <html>
 <head>
+<meta charset="utf-8">
 <script type="text/javascript" src="JSmol.min.js"></script>
-
-<script type="text/javascript">
+<script src="js/Jmol2.js"></script>
+<script>
 
 
 var jmolApplet0; // set up in HTML table, below
+//jmolInitialize(".");
 
 // logic is set by indicating order of USE -- default is HTML5 for this test page, though
 var use = "HTML5" // JAVA HTML5 WEBGL IMAGE  are all otions
@@ -23,7 +25,7 @@ var s = document.location.search;
 Jmol._debugCode = (s.indexOf("debugcode") >= 0);
 
 jmol_isReady = function(applet) {
-	Jmol._getElement(applet, "appletdiv").style.border="1px solid blue"
+	Jmol._getElement(applet, "appletdiv").style.border="1px solid black"
 }		
 
 var xxxx = document.location.search
@@ -37,8 +39,12 @@ if (xxxx.length == 5 || xxxx.length == 0) {
 	+'set zoomlarge false;set echo top left;echo loading XXXX...;refresh;'
 	+'load "XXXX.pdb";set echo top center;echo XXXX;'
 	+'spacefill off;wireframe off;cartoons on;color structure;'
+	+'connect (resno=1) (resno=170);'
+	+'spacefill only;spacefill 23%;wireframe 0.15,ball&stick;background black;'
+	//+'getPropertyAsArray atomList;'
+
 	script = script.replace(/XXXX/g, xxxx)
-	console.log(window.location);
+	//console.log(window.location);
 } else {
 	script = unescape(xxxx.substring(1))
 }
@@ -48,18 +54,20 @@ var Info = {
 	width: 600,
 	height: 600,
 	debug: false,
-	color: "white",
+	color: "black",
 	addSelectionOptions: false,
 	serverURL: "http://chemapps.stolaf.edu/jmol/jsmol/php/jsmol.php",
 	use: "HTML5",
 	j2sPath: "j2s",
 	readyFunction: jmol_isReady,
 	script: script,
-	//jarPath: "java",
+	jarPath: "java",
 	//jarFile: (useSignedApplet ? "JmolAppletSigned.jar" : "JmolApplet.jar"),
+	//jarFile: ("JmolApplet0.jar"),
+	//isSigned: false,
 	//isSigned: useSignedApplet,
 	//disableJ2SLoadMonitor: true,
-	disableInitialConsole: true
+	//disableInitialConsole: true
 	//defaultModel: "$dopamine",
 	//console: "none", // default will be jmolApplet0_infodiv
 }
@@ -72,14 +80,11 @@ function addModel(xxxx, text) {
 }
 
 // these are conveniences that mimic behavior of Jmol.js
-
 function jmolCheckbox(script1, script0,text,ischecked) {Jmol.jmolCheckbox(jmolApplet0,script1, script0, text, ischecked)}
 function jmolButton(script, text) {Jmol.jmolButton(jmolApplet0, script,text)}
 function jmolHtml(s) { document.write(s) };
 function jmolBr() { jmolHtml("<br />") }
 function jmolMenu(a) {Jmol.jmolMenu(jmolApplet0, a)}
-
-
 </script>
 </head>
 <body>
@@ -89,33 +94,28 @@ function jmolMenu(a) {Jmol.jmolMenu(jmolApplet0, a)}
 
 <table><tr>
 <td>
-<!--<i>set platformSpeed...</i>
-<br>
-<a href="javascript:Jmol.script(jmolApplet0, 'set platformSpeed 8')">8</a>
-<a href="javascript:Jmol.script(jmolApplet0, 'set platformSpeed 7')">7</a>
-<a href="javascript:Jmol.script(jmolApplet0, 'set platformSpeed 6')">6</a>
-<a href="javascript:Jmol.script(jmolApplet0, 'set platformSpeed 5')">5</a>
-<a href="javascript:Jmol.script(jmolApplet0, 'set platformSpeed 4')">4</a>
-<a href="javascript:Jmol.script(jmolApplet0, 'set platformSpeed 3')">3</a>
-<a href="javascript:Jmol.script(jmolApplet0, 'set platformSpeed 2')">2</a>
-<a href="javascript:Jmol.script(jmolApplet0, 'set platformSpeed 1')">1</a>
-</td>-->
+
 <td align=center>
 
-<script type="text/javascript">
+<script>
 
-jmolApplet0 = Jmol.getApplet("jmolApplet0", Info)
+//jmolApplet0 = Jmol.getApplet("jmolApplet0", Info)
+jmolApplet(600, script);
+function getAsArray() {
+	var appletIDsuffix = "0"
+	//var atoms = jmolGetPropertyAsArray("atomno","all");
+	/*var atom1 = atoms[0];
+	var x = atom1.x;
+	var asd = atom1.info;
+	console.log(asd);*/
+	//console.log(atoms);
+	//javascript:alert(jmolGetPropertyAsString("fileinfo", "expdta"))
+	var asd = jmolGetPropertyAsArray("atomList","all");
+	console.log(asd);
+}
 
 </script>
 </td><td>
-<form><!-- (FORM tag is important to automatically set checkbox off when page reloads) -->
-<script type="text/javascript">
-Jmol.setButtonCss(null,"style='width:160px'")
-Jmol.setMenuCss(null,"style='width:160px'")
-jmolButton("if (!xid) { xid = '1js1'};var x = prompt('Enter a four-digit PDB ID',xid);if (!x) { quit }; xid = x; load @{'=' + x}","Load PDB by ID")
-jmolBr()
-</script>
-</form>
 </td></tr>
 <tr>
 <td></td>
@@ -124,9 +124,9 @@ jmolBr()
 
 
 
-<script type="text/javascript">
+<script>
 jmolBr()
-Jmol.setButtonCss(null,"style='width:120px'")
+Jmol.setButtonCss(null,"style='width:180px'")
 jmolButton("color cpk")
 jmolButton("color group")
 jmolButton("color amino")
@@ -136,11 +136,12 @@ jmolButton("trace only")
 jmolButton("cartoon only")
 jmolButton("backbone only")
 jmolButton("spacefill only;spacefill 23%;wireframe 0.15","ball&stick")
-jmolButton("background black")
+jmolBr()
 jmolButton("select alpha; color grey;")
+//getAsArray()
 jmolBr()
 </script>
-
+<div id="getAsArray"><a href="javascript:getAsArray()">getAsArray</a>
 </td></tr></table>
 
 </body>

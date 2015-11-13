@@ -31,8 +31,8 @@ jmol_isReady = function(applet) {
 var xxxx = document.location.search
 if (xxxx.indexOf("_USE=") > 0)xxxx = xxxx.substring(0, xxxx.indexOf("_USE=") - 1);
 if (xxxx.length == 5 || xxxx.length == 0) { 
-	xxxx = (xxxx + "?slipknotfind_1ALK_A").substring(1,20)
-	//xxxx = xxxx + "?knotfind_1JS1;slipknotfind_1ALK_A";
+	xxxx = (xxxx + "?knotfind_1JS1").substring(1,20)
+	//xxxx = xxxx + "?knotfind_1JS1;slipknotfind_1ALK_A;knotfind_1G0Z";
 	script = 'h2oOn=true;set animframecallback "jmolscript:if (!selectionHalos) {select model=_modelNumber}";'
 	+'set errorCallback "myCallback";'
 	+'set defaultloadscript "isDssp = false;set defaultVDW babel;if(!h2oOn){display !water}";'

@@ -54,6 +54,12 @@
          while ( i.hasNext () ) 
          {
             FileItem fi = (FileItem)i.next();
+            if (fi.isFormField()) {
+                String fname = fi.getFieldName();
+                String fvalue = fi.getString();
+                out.println(fname+" "+fvalue);
+                chain = fvalue;
+            }
             if ( !fi.isFormField () )	
             {
             // Get the uploaded file parameters
@@ -74,15 +80,12 @@
             fileName + "<br>");
             name = fileName;
             }
-            
          }
          out.println("</body>");
          out.println("</html>");
          
          KnotFind knot = new KnotFind();
-         chain = "A";
          out.println("<br />"+knot.initResidual(name,chain)+"<br />");
-         out.println(chain);
       }catch(Exception ex) {
          System.out.println(ex);
       }

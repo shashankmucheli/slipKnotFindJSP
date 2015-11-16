@@ -1,0 +1,5 @@
+<!--<h3>test.html</h3>
+        <div style="border: 2px solid black;">
+        <c:import var="testHtml" url="http://localhost:8080/pdb/test1.html" />
+        <c:out value="${testHtml}" escapeXml="false" />
+        </div>-->

@@ -95,6 +95,7 @@ public class KnotFind {
 //      }
 //      System.out.println("***************************************");
         String s = slipknotFind(res);
+        /*Remove this to get the log of all residues*/s = " ";
         return s;
    }
    

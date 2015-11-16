@@ -3,6 +3,8 @@
     Created on : Sep 29, 2015, 6:00:47 PM
     Author     : Shashank
 --%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+
 <%@page import="KnotFind.KnotFind"%>
 <%@ page contentType="text/html" pageEncoding="UTF-8"%>
 <%@ page import="java.io.*,java.util.*, javax.servlet.*" %>
@@ -86,6 +88,10 @@
          
          KnotFind knot = new KnotFind();
          out.println("<br />"+knot.initResidual(name,chain)+"<br />");
+         %>
+        
+        <c:redirect url="http://localhost:8080/pdb/test1.html"/>
+        <%
       }catch(Exception ex) {
          System.out.println(ex);
       }
@@ -100,3 +106,4 @@
       out.println("</html>");
    }
 %>
+

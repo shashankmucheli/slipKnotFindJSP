@@ -31,8 +31,8 @@ jmol_isReady = function(applet) {
 var xxxx = document.location.search
 if (xxxx.indexOf("_USE=") > 0)xxxx = xxxx.substring(0, xxxx.indexOf("_USE=") - 1);
 if (xxxx.length == 5 || xxxx.length == 0) { 
-	xxxx = (xxxx + "?knotfind_1JS1").substring(1,20)
-	//xxxx = xxxx + "?knotfind_1JS1;slipknotfind_1ALK_A;knotfind_1G0Z";
+	xxxx = (xxxx + "?knotfind_5fl5_A").substring(1,20)
+	//xxxx = xxxx + "?knotfind_1JS1;slipknotfind_1ALK_A;knotfind_1G0Z;knotfind_1E2I";
 	script = 'h2oOn=true;set animframecallback "jmolscript:if (!selectionHalos) {select model=_modelNumber}";'
 	+'set errorCallback "myCallback";'
 	+'set defaultloadscript "isDssp = false;set defaultVDW babel;if(!h2oOn){display !water}";'
@@ -138,7 +138,7 @@ setTimeout(function(){
 
 
 <script>
-/*jmolBr()
+jmolBr()
 Jmol.setButtonCss(null,"style='width:180px'")
 jmolButton("color cpk")
 jmolButton("color group")
@@ -150,7 +150,7 @@ jmolButton("cartoon only")
 jmolButton("backbone only")
 jmolButton("spacefill only;spacefill 23%;wireframe 0.15","ball&stick")
 jmolBr()
-jmolButton("select alpha; color grey;")*/
+jmolButton("select alpha; label; color grey;")
 jmolBr()
 </script>
 <!--<div id="getAsArray"><a href="javascript:getAsArray()">Connect the atoms!</a>-->

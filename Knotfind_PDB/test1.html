@@ -23,9 +23,9 @@ function getCookie(cname) {
     return "";
 } 
 
-var tmp = getCookie("name");
-var t = tmp.split('.');
-console.log(t[0]);
+var pdbfullname = getCookie("PDBName");
+var pdbID = pdbfullname.split('.');
+console.log(pdbID[0]);
 </script>
 <script>
 
@@ -53,7 +53,7 @@ jmol_isReady = function(applet) {
 var xxxx = document.location.search
 if (xxxx.indexOf("_USE=") > 0)xxxx = xxxx.substring(0, xxxx.indexOf("_USE=") - 1);
 if (xxxx.length == 5 || xxxx.length == 0) { 
-	xxxx = (xxxx + "?knotfind_"+t[0]).substring(1,20)
+	xxxx = (xxxx + "?knotfind_"+pdbID[0]).substring(1,20)
 	//xxxx = xxxx + "?knotfind_1JS1;slipknotfind_1ALK_A;knotfind_1G0Z;knotfind_1E2I";
 	script = 'h2oOn=true;set animframecallback "jmolscript:if (!selectionHalos) {select model=_modelNumber}";'
 	+'set errorCallback "myCallback";'
@@ -146,7 +146,7 @@ setTimeout(function(){
 		}
 	}
 	jmolScript("color group");
-}, 300);	
+}, 400);	
 //}
 
 </script>
@@ -166,17 +166,22 @@ jmolButton("color cpk")
 jmolButton("color group")
 jmolButton("color amino")
 jmolButton("color structure")
-jmolBr()
-jmolButton("trace only")
+jmolButton("background white")
+/*jmolBr()
 jmolButton("cartoon only")
 jmolButton("backbone only")
-jmolButton("spacefill only;spacefill 23%;wireframe 0.15","ball&stick")
+jmolButton("spacefill only;spacefill 23%;wireframe 0.15","ball&stick")*/
 jmolBr()
 jmolButton("select alpha; label; color grey;")
 jmolBr()
 </script>
 <!--<div id="getAsArray"><a href="javascript:getAsArray()">Connect the atoms!</a>-->
 </td></tr></table>
-
+<script>
+/*function delete_cookie( pdbfullname ) {
+  document.cookie = pdbfullname + '=; expires=Thu, 01 Jan 1970 00:00:01 GMT;';
+}
+delete_cookie( pdbfullname );*/
+</script>
 </body>
 </html>

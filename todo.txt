@@ -1,0 +1,7 @@
+JSMol: Fix the CA only connections
+get a download button.
+show the knot data.
+slipknots directories.
+no redundancy.
+get the server from paul.
+change the bkgrd color button name -> background color.

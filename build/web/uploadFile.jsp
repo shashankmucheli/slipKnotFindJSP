@@ -88,9 +88,9 @@
          
          KnotFind knot = new KnotFind();
          out.println("<br />"+knot.initResidual(name,chain)+"<br />");
-         Cookie cookie = new Cookie("name",name);
+         Cookie cookie = new Cookie("PDBName",name);
          cookie.setMaxAge(60*60*12);
-         cookie.setPath("/pdb/");
+         cookie.setPath("/");
          response.addCookie(cookie);
          %>
         

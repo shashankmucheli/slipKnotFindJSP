@@ -88,9 +88,14 @@
          
          KnotFind knot = new KnotFind();
          out.println("<br />"+knot.initResidual(name,chain)+"<br />");
+         Cookie cookie = new Cookie("name",name);
+         cookie.setMaxAge(60*60*12);
+         cookie.setPath("/pdb/");
+         response.addCookie(cookie);
          %>
         
-        <c:redirect url="http://localhost:8080/pdb/test1.html"/>
+        <c:redirect url="http://localhost:8080/pdb/test1.html">
+        </c:redirect>
         <%
       }catch(Exception ex) {
          System.out.println(ex);

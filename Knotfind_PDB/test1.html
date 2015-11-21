@@ -54,7 +54,7 @@ var xxxx = document.location.search
 if (xxxx.indexOf("_USE=") > 0)xxxx = xxxx.substring(0, xxxx.indexOf("_USE=") - 1);
 if (xxxx.length == 5 || xxxx.length == 0) { 
 	xxxx = (xxxx + "?knotfind_"+pdbID[0]).substring(1,20)
-	//xxxx = xxxx + "?knotfind_1JS1;slipknotfind_1ALK_A;knotfind_1G0Z;knotfind_1E2I";
+	//xxxx = xxxx + "?knotfind_1JS1;slipknotfind_1ALK_A;knotfind_1G0Z;knotfind_1E2I;knotfind_"+pdbID[0]";
 	script = 'h2oOn=true;set animframecallback "jmolscript:if (!selectionHalos) {select model=_modelNumber}";'
 	+'set errorCallback "myCallback";'
 	+'set defaultloadscript "isDssp = false;set defaultVDW babel;if(!h2oOn){display !water}";'
@@ -141,8 +141,10 @@ setTimeout(function(){
 	for (var i = 0; i < CALength-1; i++) {
 		//alert(myStringArray[i]);
 		if(CA[i].name == "CA"){
-			jmolScript("connect (resno="+CA[i].resno+") (resno="+CA[(i+1)].resno+") SINGLE;")
-			console.log(CA[i]);
+			if(CA[i].element == "carbon"){	
+				jmolScript("connect (atomno="+CA[i].atomno+") (atomno="+CA[(i+1)].atomno+") SINGLE;")
+				console.log(CA[i]);
+			}
 		}
 	}
 	jmolScript("color group");
@@ -167,6 +169,7 @@ jmolButton("color group")
 jmolButton("color amino")
 jmolButton("color structure")
 jmolButton("background white")
+jmolButton("write PDB XYZ "+pdbID[0]+".pdb")
 /*jmolBr()
 jmolButton("cartoon only")
 jmolButton("backbone only")

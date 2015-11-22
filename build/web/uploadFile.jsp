@@ -87,15 +87,20 @@
          out.println("</html>");
          
          KnotFind knot = new KnotFind();
-         out.println("<br />"+knot.initResidual(name,chain)+"<br />");
-         Cookie cookie = new Cookie("PDBName",name);
-         cookie.setMaxAge(60*60*12);
-         cookie.setPath("/");
-         response.addCookie(cookie);
+         String dir = knot.initResidual(name,chain);
+         Cookie PDBDir = new Cookie("PDBDir",dir);
+         Cookie PDBName = new Cookie("PDBName",name);
+         PDBName.setMaxAge(60*60*12);
+         PDBDir.setMaxAge(60*60*12);
+         PDBName.setPath("/");
+         PDBDir.setPath("/");
+         response.addCookie(PDBName);
+         response.addCookie(PDBDir);
+         out.println("<br />"+dir+"<br />");
          %>
-        
-        <c:redirect url="http://localhost:8080/pdb/test1.html">
+        <c:redirect url="http://localhost:8080/pdb/visualize.html">
         </c:redirect>
+        
         <%
       }catch(Exception ex) {
          System.out.println(ex);

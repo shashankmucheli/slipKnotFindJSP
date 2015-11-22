@@ -24,8 +24,9 @@ function getCookie(cname) {
 } 
 
 var pdbfullname = getCookie("PDBName");
+var pdbdir = getCookie("PDBDir");
 var pdbID = pdbfullname.split('.');
-console.log(pdbID[0]);
+console.log(pdbdir+pdbID[0]);
 </script>
 <script>
 
@@ -53,16 +54,15 @@ jmol_isReady = function(applet) {
 var xxxx = document.location.search
 if (xxxx.indexOf("_USE=") > 0)xxxx = xxxx.substring(0, xxxx.indexOf("_USE=") - 1);
 if (xxxx.length == 5 || xxxx.length == 0) { 
-	xxxx = (xxxx + "?knotfind_"+pdbID[0]).substring(1,20)
+	xxxx = (xxxx + "?"+pdbdir+pdbID[0]).substring(1,50)
 	//xxxx = xxxx + "?knotfind_1JS1;slipknotfind_1ALK_A;knotfind_1G0Z;knotfind_1E2I;knotfind_"+pdbID[0]";
 	script = 'h2oOn=true;set animframecallback "jmolscript:if (!selectionHalos) {select model=_modelNumber}";'
 	+'set errorCallback "myCallback";'
 	+'set defaultloadscript "isDssp = false;set defaultVDW babel;if(!h2oOn){display !water}";'
 	+'set zoomlarge false;set echo top left;echo loading XXXX...;refresh;'
-	+'load "XXXX.pdb";set echo top center;echo XXXX;'
+	+'load "XXXX.pdb";set echo top left;echo XXXX;'
 	+'spacefill off;wireframe off;cartoons on;color structure;'
-	+'spacefill only;spacefill 23%;wireframe 0.15,ball&stick;background black'
-	//+'getPropertyAsArray atomList;'
+	+'spacefill only;spacefill 23%;wireframe 0.15,ball&stick;background white'
 
 	script = script.replace(/XXXX/g, xxxx)
 	//console.log(window.location);
@@ -70,28 +70,6 @@ if (xxxx.length == 5 || xxxx.length == 0) {
 	script = unescape(xxxx.substring(1))
 }
 
-
-var Info = {
-	width: 600,
-	height: 600,
-	debug: false,
-	color: "black",
-	addSelectionOptions: false,
-	serverURL: "http://chemapps.stolaf.edu/jmol/jsmol/php/jsmol.php",
-	use: "HTML5",
-	j2sPath: "j2s",
-	readyFunction: jmol_isReady,
-	script: script,
-	jarPath: "java",
-	//jarFile: (useSignedApplet ? "JmolAppletSigned.jar" : "JmolApplet.jar"),
-	//jarFile: ("JmolApplet0.jar"),
-	//isSigned: false,
-	//isSigned: useSignedApplet,
-	//disableJ2SLoadMonitor: true,
-	//disableInitialConsole: true
-	//defaultModel: "$dopamine",
-	//console: "none", // default will be jmolApplet0_infodiv
-}
 
 Models = []
 
@@ -121,7 +99,7 @@ function jmolMenu(a) {Jmol.jmolMenu(jmolApplet0, a)}
 <script>
 
 //jmolApplet0 = Jmol.getApplet("jmolApplet0", Info)
-jmolApplet(600, script);
+jmolApplet(500, script);
 //function getAsArray() {
 setTimeout(function(){
 	var atomdata = jmolGetPropertyAsArray("atomInfo","all");
@@ -168,14 +146,14 @@ jmolButton("color cpk")
 jmolButton("color group")
 jmolButton("color amino")
 jmolButton("color structure")
-jmolButton("background white")
+jmolButton("background black")
 jmolButton("write PDB XYZ "+pdbID[0]+".pdb")
 /*jmolBr()
 jmolButton("cartoon only")
 jmolButton("backbone only")
 jmolButton("spacefill only;spacefill 23%;wireframe 0.15","ball&stick")*/
 jmolBr()
-jmolButton("select alpha; label; color grey;")
+jmolButton("select alpha; label; color gray;")
 jmolBr()
 </script>
 <!--<div id="getAsArray"><a href="javascript:getAsArray()">Connect the atoms!</a>-->

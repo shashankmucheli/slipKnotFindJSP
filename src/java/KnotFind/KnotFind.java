@@ -29,24 +29,30 @@ import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.nio.file.Files;
+import java.nio.file.NoSuchFileException;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 //import slipknotfind.SlipknotFind;
 
 
 public class KnotFind {
    
-   
    static final double TOLERANCE=0.0003;
    static List<Triangle> tri=new ArrayList();
    static List<Res> res=new ArrayList();
    static boolean _byArea=false;
-   static String Knotfind_PDB = "G:\\Shashank\\Dropbox\\UMassD\\CIS 690\\KnotFind\\Knots\\Knotfind_PDB\\", Slipknotfind_PDB = "G:\\Shashank\\Dropbox\\UMassD\\CIS 690\\KnotFind\\Knots\\Slipknotfind_PDB\\";
+   static String Knotfind_PDB = "G:\\Shashank\\Dropbox\\UMassD\\CIS 690\\KnotFind\\Knots\\Knotfind_PDB\\Knots\\", Slipknotfind_PDB = "G:\\Shashank\\Dropbox\\UMassD\\CIS 690\\KnotFind\\Knots\\Knotfind_PDB\\Slipknots\\";
    static String PATH="G:\\Shashank\\Dropbox\\UMassD\\CIS 690\\KnotFind\\Knots\\PDB\\";     //the path of your pdb file.     e.g. PATH="PDB/";
    //static String PDB="1ALK_A.pdb", chain="A";
    static String PDB,chain="A";
    int first_atom,last_atom = 0;
+   ArrayList slist = new ArrayList<Integer>();
    
    
    /*public static void main(String[] args) {
@@ -95,7 +101,7 @@ public class KnotFind {
 //      }
 //      System.out.println("***************************************");
         String s = slipknotFind(res);
-        /*Remove this to get the log of all residues*/s = " ";
+        /*Remove this to get the log of all residues*/
         return s;
    }
    
@@ -134,7 +140,6 @@ public class KnotFind {
          for(int j=i+2;j<res.size();j++){
             if(_knotInR) break;
             System.out.println("checking residues from " + i + " to "+ j +"  ");
-            str+="<br />checking residues from " + i + " to "+ j +"  ";
             r=new ArrayList();
             for(int p=0;p<j+1;p++){
                r.add(res.get(p));
@@ -146,7 +151,6 @@ public class KnotFind {
                k3=i;
                k2=j;
                System.out.println("find a knot between "+ k3 + " and "+k2);
-               str+="<br />find a knot between "+ k3 + " and "+k2;
             }
          }
       }
@@ -159,11 +163,9 @@ public class KnotFind {
          initTriangle(r);
          
          System.out.println("checking residues from " + i + " to "+ k2 +"  ");
-         str+="<br />checking residues from " + i + " to "+ k2 +"  ";
          if(!knotFind(r)){
             k3=i-1;
             System.out.println("find smallest knot between "+k3 +" to "+ k2);
-            str+="<br />find smallest knot between "+k3 +" to "+ k2;
             ArrayList list = new ArrayList<Integer>();
             for(Res s : r){
                 list.add(s.index);
@@ -199,7 +201,6 @@ public class KnotFind {
                     list.add(s.index);
                 }
                 System.out.println(list);
-                str+="<br />"+list+"<br />";
                 pdb_slipknotfind(list);
             }
          }
@@ -224,7 +225,6 @@ public class KnotFind {
                         list.add(s.index);
                     }
                     System.out.println(list);
-                    str+=list+"<br />";
                     pdb_slipknotfind(list);
                 }
             }
@@ -232,16 +232,28 @@ public class KnotFind {
 
          if(_knotInR == true && _knotInRes == false){
             System.out.println("find a slipknot: k3="+k3+"  k2="+k2+"  k1="+ k1);
+            str="Slipknots/";
+            System.out.println(str);
+            String tmp = Knotfind_PDB+PDB;
+            deleteFile(tmp);
+            return str;
          }
          else{
             System.out.println("this chain has a knot between "+ k3+ " and "+k2);
+            str="Knots/";
+            System.out.println(str);
+            pdb_knotfind(slist);
+            String tmp = Slipknotfind_PDB+PDB;
+            deleteFile(tmp);
+            return str;
          }
       }
       else{
          System.out.println("no knots, no slipknots");
+         str="nothing";
+         System.out.println(str);
+         return str;
       }
-      str+="success <br />";
-      return str;
    }
    
    void simplify(List<Res> res){
@@ -255,6 +267,7 @@ public class KnotFind {
             }
             System.out.println(list);
             pdb_knotfind(list);
+            slist = list;
             return;
          }
 
@@ -273,6 +286,7 @@ public class KnotFind {
       }
       //System.out.println(list);
       pdb_knotfind(list);
+      slist = list;
    }
    
    boolean findIntersect(Plane plane, List<Res> res){
@@ -513,7 +527,14 @@ public class KnotFind {
       simplify(res);       
       _byArea=false;
    }
-
+    private void deleteFile(String str){
+        Path p = Paths.get(str);
+            try {
+                Files.delete(p);
+            } catch (IOException ex) {
+                 Logger.getLogger(KnotFind.class.getName()).log(Level.SEVERE, null, ex);
+             }
+    }
     private void pdb_knotfind(ArrayList list) {
       String fileName=PATH+PDB;
       File file=new File(fileName);
@@ -522,7 +543,7 @@ public class KnotFind {
       /*System.out.println("k1 value : " + k1);
       System.out.println("k3 value : " + k3);*/
       try{
-         String trim_filename = Knotfind_PDB+"knotfind_"+PDB;
+         String trim_filename = Knotfind_PDB+PDB;
          PrintWriter writer = new PrintWriter(trim_filename, "UTF-8"); 
          reader=new BufferedReader(new FileReader(file));
          tmp=new BufferedReader(new FileReader(file));
@@ -556,7 +577,7 @@ public class KnotFind {
       /*System.out.println("k1 value : " + k1);
       System.out.println("k3 value : " + k3);*/
       try{
-         String trim_filename = Slipknotfind_PDB+"slipknotfind_"+PDB;
+         String trim_filename = Slipknotfind_PDB+PDB;
          //String load_filename = Slipknotfind_PDB+"load_"+PDB;
          PrintWriter writer = new PrintWriter(trim_filename, "UTF-8"); 
          //PrintWriter loadfile_writer = new PrintWriter(load_filename, "UTF-8"); 

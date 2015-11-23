@@ -88,19 +88,43 @@
          
          KnotFind knot = new KnotFind();
          String dir = knot.initResidual(name,chain);
-         Cookie PDBDir = new Cookie("PDBDir",dir);
+         out.println("<br />"+dir+"<br />");
+         String[] split;
+         split = dir.split("-");
+         if(split[0].equals("Slipknots/")){
+             String N =  split[1];
+             String k3 =  split[2];
+             String k2 =  split[3];
+             String k1 =  split[4];
+             String C =  split[5];
+             String index = N+"-"+k3+"-"+k2+"-"+k1+"-"+C;
+             Cookie knotProt = new Cookie("knotProt",index);
+             knotProt.setMaxAge(60*60*24);
+             knotProt.setPath("/");
+             response.addCookie(knotProt);
+         }
+         else if(split[0].equals("Knots/")){
+             String N =  split[1];
+             String k3 =  split[2];
+             String k2 =  split[3];
+             String C =  split[4];
+             String index = N+"-"+k3+"-"+k2+"-"+C;
+             Cookie knotProt = new Cookie("knotProt",index);
+             knotProt.setMaxAge(60*60*24);
+             knotProt.setPath("/");
+             response.addCookie(knotProt);
+         }
+         Cookie PDBDir = new Cookie("PDBDir",split[0]);
          Cookie PDBName = new Cookie("PDBName",name);
-         PDBName.setMaxAge(60*60*12);
-         PDBDir.setMaxAge(60*60*12);
+         PDBName.setMaxAge(60*60*24);
+         PDBDir.setMaxAge(60*60*24);
          PDBName.setPath("/");
          PDBDir.setPath("/");
          response.addCookie(PDBName);
          response.addCookie(PDBDir);
-         out.println("<br />"+dir+"<br />");
          %>
-        <c:redirect url="http://localhost:8080/pdb/visualize.html">
+        <c:redirect url="http://localhost:8080/pdb/">
         </c:redirect>
-        
         <%
       }catch(Exception ex) {
          System.out.println(ex);

@@ -47,12 +47,13 @@ public class KnotFind {
    static List<Triangle> tri=new ArrayList();
    static List<Res> res=new ArrayList();
    static boolean _byArea=false;
-   static String Knotfind_PDB = "G:\\Shashank\\Dropbox\\UMassD\\CIS 690\\KnotFind\\Knots\\Knotfind_PDB\\Knots\\", Slipknotfind_PDB = "G:\\Shashank\\Dropbox\\UMassD\\CIS 690\\KnotFind\\Knots\\Knotfind_PDB\\Slipknots\\";
+   static String Knotfind_PDB = "G:\\Shashank\\Dropbox\\UMassD\\CIS 690\\KnotFind\\Knots\\Solution\\Knots\\", Slipknotfind_PDB = "G:\\Shashank\\Dropbox\\UMassD\\CIS 690\\KnotFind\\Knots\\Solution\\Slipknots\\";
    static String PATH="G:\\Shashank\\Dropbox\\UMassD\\CIS 690\\KnotFind\\Knots\\PDB\\";     //the path of your pdb file.     e.g. PATH="PDB/";
    //static String PDB="1ALK_A.pdb", chain="A";
    static String PDB,chain="A";
    int first_atom,last_atom = 0;
-   ArrayList slist = new ArrayList<Integer>();
+   ArrayList katomlist = new ArrayList<>();
+   ArrayList satomlist = new ArrayList<>();
    
    
    /*public static void main(String[] args) {
@@ -201,7 +202,8 @@ public class KnotFind {
                     list.add(s.index);
                 }
                 System.out.println(list);
-                pdb_slipknotfind(list);
+                satomlist = list;
+                //pdb_slipknotfind(list);
             }
          }
          
@@ -225,7 +227,8 @@ public class KnotFind {
                         list.add(s.index);
                     }
                     System.out.println(list);
-                    pdb_slipknotfind(list);
+                    satomlist = list;
+                    //pdb_slipknotfind(list);
                 }
             }
          }
@@ -233,18 +236,21 @@ public class KnotFind {
          if(_knotInR == true && _knotInRes == false){
             System.out.println("find a slipknot: k3="+k3+"  k2="+k2+"  k1="+ k1);
             str="Slipknots/";
+            pdb_slipknotfind(satomlist);
             System.out.println(str);
             String tmp = Knotfind_PDB+PDB;
-            deleteFile(tmp);
+            //deleteFile(tmp);
+            str=str+"-"+first_atom+"-"+k3+"-"+k2+"-"+k1+"-"+last_atom;
             return str;
          }
          else{
             System.out.println("this chain has a knot between "+ k3+ " and "+k2);
             str="Knots/";
             System.out.println(str);
-            pdb_knotfind(slist);
+            pdb_knotfind(katomlist);
             String tmp = Slipknotfind_PDB+PDB;
-            deleteFile(tmp);
+            //deleteFile(tmp);
+            str=str+"-"+first_atom+"-"+k3+"-"+k2+"-"+last_atom;
             return str;
          }
       }
@@ -266,8 +272,8 @@ public class KnotFind {
                 list.add(s.index);
             }
             System.out.println(list);
-            pdb_knotfind(list);
-            slist = list;
+            //pdb_knotfind(list);
+            katomlist = list;
             return;
          }
 
@@ -285,8 +291,8 @@ public class KnotFind {
         list.add(s.index);
       }
       //System.out.println(list);
-      pdb_knotfind(list);
-      slist = list;
+      //pdb_knotfind(list);
+      katomlist = list;
    }
    
    boolean findIntersect(Plane plane, List<Res> res){

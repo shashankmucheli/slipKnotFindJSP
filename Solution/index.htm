@@ -19,8 +19,11 @@ function getCookie(cname) {
 
 var pdbfullname = getCookie("PDBName");
 var pdbdir = getCookie("PDBDir");
+var knotProtArray = getCookie("knotProt");
 var pdbID = pdbfullname.split('.');
+var knotProt = knotProtArray.split('-');
 console.log(pdbdir+pdbID[0]);
+console.log(knotProt);
 </script>
 <script>
 
@@ -65,6 +68,14 @@ Models = []
 template = "xid='%1';load =%1|%2 (%1)"
 function addModel(xxxx, text) {
  Models.push(template.replace(/\%1/g, xxxx).replace(/%2/g, text).split("|"))
+}
+function printData() {
+	if(pdbdir == "Slipknots/"){
+		document.getElementById("demo").innerHTML = "Knot tail = "+knotProt[0]+" to "+knotProt[1]+"<br />Knot Core = "+knotProt[1]+" to "+knotProt[2]+"<br />Slipknot Loop = "+knotProt[2]+" to "+knotProt[3]+"<br />Slipknot tail = "+knotProt[3]+" to "+knotProt[4];
+	}
+    else if(pdbdir == "Knots/"){
+		document.getElementById("demo").innerHTML = "Knot tail = "+knotProt[0]+" to "+knotProt[1]+"<br />Knot core = "+knotProt[1]+" to "+knotProt[2]+"<br />Knot tail = "+knotProt[2]+" to "+knotProt[3];
+	}
 }
 
 // these are conveniences that mimic behavior of Jmol.js
@@ -133,11 +144,15 @@ jmolButton("color amino")
 jmolBr()
 jmolButton("color structure")
 jmolButton("background black")
-jmolButton("select alpha; label; color gray;")
 jmolBr()
 </script>
 </td></tr></table>
 <script>
 </script>
+<div id="demo" style="float: center;text-align: center;" >]
+	<script>
+		printData();
+	</script>	
+</div>
 </body>
 </html>

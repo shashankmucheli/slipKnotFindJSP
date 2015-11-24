@@ -6,12 +6,6 @@
 <script src="js/Jmol2.js"></script>
 <script>
 
-//console.log(document.cookie);
-/*function getCookie(name) {
-  var regexp = new RegExp("(?:^" + name + "|;\s*"+ name + ")=(.*?)(?:;|$)", "g");
-  var result = regexp.exec(document.cookie);
-  return (result === null) ? null : result[1];
-}*/
 function getCookie(cname) {
     var name = cname + "=";
     var ca = document.cookie.split(';');
@@ -25,18 +19,19 @@ function getCookie(cname) {
 
 var pdbfullname = getCookie("PDBName");
 var pdbdir = getCookie("PDBDir");
+var knotProtArray = getCookie("knotProt");
 var pdbID = pdbfullname.split('.');
+var knotProt = knotProtArray.split('-');
 console.log(pdbdir+pdbID[0]);
+console.log(knotProt);
 </script>
 <script>
 
 
 var jmolApplet0; // set up in HTML table, below
-//jmolInitialize(".");
 
 // logic is set by indicating order of USE -- default is HTML5 for this test page, though
 var use = "HTML5" // JAVA HTML5 WEBGL IMAGE  are all otions
-//var s = document.location.search;
 
 // Developers: The _debugCode flag is checked in j2s/core/core.z.js, 
 // and, if TRUE, skips loading the core methods, forcing those
@@ -44,9 +39,6 @@ var use = "HTML5" // JAVA HTML5 WEBGL IMAGE  are all otions
 // true if you want to do some code debugging by inserting
 // System.out.println, document.title, or alert commands
 // anywhere in the Java or Jmol code.
-
-//Jmol._debugCode = (s.indexOf("debugcode") >= 0);
-
 jmol_isReady = function(applet) {
 	Jmol._getElement(applet, "appletdiv").style.border="1px solid black"
 }		
@@ -77,6 +69,14 @@ template = "xid='%1';load =%1|%2 (%1)"
 function addModel(xxxx, text) {
  Models.push(template.replace(/\%1/g, xxxx).replace(/%2/g, text).split("|"))
 }
+function printData() {
+	if(pdbdir == "Slipknots/"){
+		document.getElementById("demo").innerHTML = "Knot tail = "+knotProt[0]+" to "+knotProt[1]+"<br />Knot Core = "+knotProt[1]+" to "+knotProt[2]+"<br />Slipknot Loop = "+knotProt[2]+" to "+knotProt[3]+"<br />Slipknot tail = "+knotProt[3]+" to "+knotProt[4];
+	}
+    else if(pdbdir == "Knots/"){
+		document.getElementById("demo").innerHTML = "Knot tail = "+knotProt[0]+" to "+knotProt[1]+"<br />Knot core = "+knotProt[1]+" to "+knotProt[2]+"<br />Knot tail = "+knotProt[2]+" to "+knotProt[3];
+	}
+}
 
 // these are conveniences that mimic behavior of Jmol.js
 function jmolCheckbox(script1, script0,text,ischecked) {Jmol.jmolCheckbox(jmolApplet0,script1, script0, text, ischecked)}
@@ -99,7 +99,7 @@ function jmolMenu(a) {Jmol.jmolMenu(jmolApplet0, a)}
 <script>
 
 //jmolApplet0 = Jmol.getApplet("jmolApplet0", Info)
-jmolApplet(500, script);
+jmolApplet(700, script);
 //function getAsArray() {
 setTimeout(function(){
 	var atomdata = jmolGetPropertyAsArray("atomInfo","all");
@@ -135,34 +135,24 @@ setTimeout(function(){
 <tr>
 <td></td>
 <td align=center>
-
-
-
-
 <script>
 jmolBr()
 Jmol.setButtonCss(null,"style='width:180px'")
 jmolButton("color cpk")
 jmolButton("color group")
 jmolButton("color amino")
-jmolButton("color structure")
-jmolButton("background black")
-jmolButton("write PDB XYZ "+pdbID[0]+".pdb")
-/*jmolBr()
-jmolButton("cartoon only")
-jmolButton("backbone only")
-jmolButton("spacefill only;spacefill 23%;wireframe 0.15","ball&stick")*/
 jmolBr()
-jmolButton("select alpha; label; color gray;")
+jmolButton("background white")
+jmolButton("background black")
 jmolBr()
 </script>
-<!--<div id="getAsArray"><a href="javascript:getAsArray()">Connect the atoms!</a>-->
 </td></tr></table>
 <script>
-/*function delete_cookie( pdbfullname ) {
-  document.cookie = pdbfullname + '=; expires=Thu, 01 Jan 1970 00:00:01 GMT;';
-}
-delete_cookie( pdbfullname );*/
 </script>
+<div id="demo" style="float: center;text-align: center;" >]
+	<script>
+		printData();
+	</script>	
+</div>
 </body>
 </html>

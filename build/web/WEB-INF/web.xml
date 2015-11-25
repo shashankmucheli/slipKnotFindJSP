@@ -3,7 +3,7 @@
     <context-param>
         <description>Location to store uploaded file</description>
         <param-name>file-upload</param-name>
-        <param-value>G:\Shashank\Dropbox\UMassD\CIS 690\KnotFind\Knots\PDB\</param-value>
+        <param-value>G:\Shashank\Dropbox\UMassD\CIS 690\KnotFind\Knots\Solution\PDB\</param-value>
     </context-param>
     <listener>
         <listener-class>org.apache.commons.fileupload.servlet.FileCleanerCleanup</listener-class>

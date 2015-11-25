@@ -85,7 +85,6 @@
          }
          out.println("</body>");
          out.println("</html>");
-         
          KnotFind knot = new KnotFind();
          String dir = knot.initResidual(name,chain);
          out.println("<br />"+dir+"<br />");
@@ -122,6 +121,10 @@
          PDBDir.setPath("/");
          response.addCookie(PDBName);
          response.addCookie(PDBDir);
+         /*
+            <c:redirect url="http://localhost:8080/pdb/">
+            </c:redirect>
+         */
          %>
         <c:redirect url="http://localhost:8080/pdb/">
         </c:redirect>

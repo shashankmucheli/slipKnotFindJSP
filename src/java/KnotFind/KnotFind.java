@@ -48,7 +48,7 @@ public class KnotFind {
    static List<Res> res=new ArrayList();
    static boolean _byArea=false;
    static String Knotfind_PDB = "G:\\Shashank\\Dropbox\\UMassD\\CIS 690\\KnotFind\\Knots\\Solution\\Knots\\", Slipknotfind_PDB = "G:\\Shashank\\Dropbox\\UMassD\\CIS 690\\KnotFind\\Knots\\Solution\\Slipknots\\";
-   static String PATH="G:\\Shashank\\Dropbox\\UMassD\\CIS 690\\KnotFind\\Knots\\PDB\\";     //the path of your pdb file.     e.g. PATH="PDB/";
+   static String PATH="G:\\Shashank\\Dropbox\\UMassD\\CIS 690\\KnotFind\\Knots\\Solution\\PDB\\";     //the path of your pdb file.     e.g. PATH="PDB/";
    //static String PDB="1ALK_A.pdb", chain="A";
    static String PDB,chain="A";
    int first_atom,last_atom = 0;
@@ -256,7 +256,7 @@ public class KnotFind {
       }
       else{
          System.out.println("no knots, no slipknots");
-         str="nothing";
+         str="PDB/";
          System.out.println(str);
          return str;
       }

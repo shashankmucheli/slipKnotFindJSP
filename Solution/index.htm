@@ -54,7 +54,7 @@ if (xxxx.length == 5 || xxxx.length == 0) {
 	+'set zoomlarge false;set echo top left;echo loading XXXX...;refresh;'
 	+'load "XXXX.pdb";set echo top left;echo XXXX;'
 	+'spacefill off;wireframe off;cartoons on;'
-	+'color gray; trace ONLY;wireframe 0.15,ball&stick; restrict *.ca;'
+	+'color gray; cartoon ONLY;wireframe 0.15,ball&stick; restrict *.ca;'
 
 	script = script.replace(/XXXX/g, xxxx)
 	//console.log(window.location);
@@ -75,6 +75,9 @@ function printData() {
 	}
     else if(pdbdir == "Knots/"){
 		document.getElementById("demo").innerHTML = "Knot tail = "+knotProt[0]+" to "+knotProt[1]+"<br />Knot core = "+knotProt[1]+" to "+knotProt[2]+"<br />Knot tail = "+knotProt[2]+" to "+knotProt[3];
+	}
+	else if(pdbdir == "PDB/"){
+		document.getElementById("demo").innerHTML = "This Protein model is not knotted";
 	}
 }
 
@@ -142,8 +145,19 @@ setTimeout(function(){
 		}
 		jmolScript("select "+knotProt[1]+"-"+knotProt[3]+"; color group;")
 	}
+	if(pdbdir == "PDB/"){
+		jmolScript("color group;")
+	}
 	//jmolScript("color group");
-}, 400);	
+}, 400);
+function redirectTo() {
+	var win = window.open(window.location.href+pdbdir+pdbID[0]+".pdb", '_blank');
+	if(win){
+		win.focus();
+	}else{
+		alert('Please allow popups for this site');
+	}
+}	
 //}
 
 </script>
@@ -162,8 +176,8 @@ jmolButton("color amino")
 jmolBr()
 jmolButton("background white")
 jmolButton("background black")
-jmolBr()
 </script>
+<button onclick="redirectTo()">Download PDB!</button>
 </td></tr></table>
 <script>
 </script>

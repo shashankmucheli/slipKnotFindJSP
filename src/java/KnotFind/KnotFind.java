@@ -2,23 +2,12 @@
  * FAQ
  * Q: What program is needed to run the code?
  * A: The project was built in NetBeans IDE. Download latest version of NetBeans form https://netbeans.org/downloads/
- *    Also, I believe you can import this project by Eclipse. 
- *    Download Eclipse form https://www.eclipse.org/downloads/packages/eclipse-standard-432/keplersr2
  *    
  * Q: Where should I place the PDB file?
  * A: The PDB file should be in the root director of the project. 
- *    One PDB file "1ALK_A.pdb" is provided.
- * 
- * Q: How can I run my own PDB file?
- * A: You can run your own PDB file through modefying the static final String PDB variable inside class SlipknotFind.
- *    Of course, you can also modify the PATH variable to your PDB folder.
- * 
- * Q: Do I need to pre-process PDB file? What do you mean by "1ALK_A"?
- * A: PDB "1ALK" has two chains (chain A and chain B). In this case, you have to seperate the two chains into two files.
- *    See the differences between "1ALK.pdb" and "1ALK_A.pdb" inside the project.
- *    For more information about PDB file. http://en.wikipedia.org/wiki/Protein_Data_Bank_(file_format)
- * 
- * For more questions: yzhang5@umassd.edu 
+ *    One PDB file "1ALK_A.pdb" is provided. 
+ *
+ * For more questions: smuchelisukumar@umassd.edu
  ***********************************************************************************************************************/
 
 
@@ -30,11 +19,9 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.nio.file.Files;
-import java.nio.file.NoSuchFileException;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -241,6 +228,7 @@ public class KnotFind {
             String tmp = Knotfind_PDB+PDB;
             //deleteFile(tmp);
             str=str+"-"+first_atom+"-"+k3+"-"+k2+"-"+k1+"-"+last_atom;
+            res.clear();
             return str;
          }
          else{
@@ -251,6 +239,7 @@ public class KnotFind {
             String tmp = Slipknotfind_PDB+PDB;
             //deleteFile(tmp);
             str=str+"-"+first_atom+"-"+k3+"-"+k2+"-"+last_atom;
+            res.clear();
             return str;
          }
       }
@@ -258,6 +247,7 @@ public class KnotFind {
          System.out.println("no knots, no slipknots");
          str="PDB/";
          System.out.println(str);
+         res.clear();
          return str;
       }
    }

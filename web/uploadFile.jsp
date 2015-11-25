@@ -1,7 +1,7 @@
 <%-- 
-    Document   : index
+    Document   : Upload PDB to the server! 
     Created on : Sep 29, 2015, 6:00:47 PM
-    Author     : Shashank
+    Author     : Shashank Mucheli
 --%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 
@@ -129,6 +129,7 @@
         <c:redirect url="http://localhost:8080/pdb/">
         </c:redirect>
         <%
+         System.gc();
       }catch(Exception ex) {
          System.out.println(ex);
       }

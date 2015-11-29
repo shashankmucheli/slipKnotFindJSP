@@ -85,6 +85,7 @@
          }
          out.println("</body>");
          out.println("</html>");
+         chain = chain.toUpperCase();
          KnotFind knot = new KnotFind();
          String dir = knot.initResidual(name,chain);
          out.println("<br />"+dir+"<br />");

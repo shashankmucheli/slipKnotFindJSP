@@ -1,13 +1,10 @@
 <!DOCTYPE html>
-<!--
-To change this license header, choose License Headers in Project Properties.
-To change this template file, choose Tools | Templates
-and open the template in the editor.
--->
 <html>
 <head>
-<title>Upload PDB</title>
+<title>Knots and Slipknots</title>
 <link href="./ui/bootstrap/css/bootstrap.css" rel="stylesheet">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+<script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
 <!-- Loading Flat UI -->
 <link href="./ui/css/flat-ui.css" rel="stylesheet">
 <link href="./ui/css/fkhatib.css" rel="stylesheet">
@@ -15,8 +12,9 @@ and open the template in the editor.
     <body>
         <i>Choose a PDB to upload:</i><br />
         <form action="uploadFile.jsp" method="POST" enctype="multipart/form-data">
-            <input type="file" name="file" size="50" />
-            <input type="text" ID="chain" name="chain" size="40" placeholder="Enter the chain to be scanned! Ex: A, X etc.,"/>
+            <input type="file" name="file" size="50" /> <br /><br />
+            Chain: <input type="text" ID="chain" name="chain" size="20" data-toggle="tooltip" title="Enter the chain alphabet, Default: The first available chain in the PDB" placeholder="Ex: A, X etc."/>
+            <br />
             <br />
             <input type="submit" value="Check Knots!" />
         </form>

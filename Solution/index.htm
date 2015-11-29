@@ -77,11 +77,9 @@ function printData() {
 		document.getElementById("demo").innerHTML = "Knot tail = "+knotProt[0]+" to "+knotProt[1]+"<br />Knot core = "+knotProt[1]+" to "+knotProt[2]+"<br />Knot tail = "+knotProt[2]+" to "+knotProt[3];
 	}
 	else if(pdbdir == "PDB/"){
-		document.getElementById("demo").innerHTML = "This Protein model is not knotted";
+		document.getElementById("demo").innerHTML = "This protein model is unknotted";
 	}
 }
-
-// these are conveniences that mimic behavior of Jmol.js
 function jmolCheckbox(script1, script0,text,ischecked) {Jmol.jmolCheckbox(jmolApplet0,script1, script0, text, ischecked)}
 function jmolButton(script, text) {Jmol.jmolButton(jmolApplet0, script,text)}
 function jmolHtml(s) { document.write(s) };
@@ -90,25 +88,18 @@ function jmolMenu(a) {Jmol.jmolMenu(jmolApplet0, a)}
 </script>
 </head>
 <body>
-
-<center>
-
-
+<center />
 <table><tr>
 <td>
 
 <td align=center>
 
 <script>
-
-//jmolApplet0 = Jmol.getApplet("jmolApplet0", Info)
 jmolApplet(700, script);
-//function getAsArray() {
 setTimeout(function(){
 	var atomdata = jmolGetPropertyAsArray("atomInfo","all");
 	var CA = new Array();
 	var atom1 = atomdata[0];
-	//var x = atom1.x;
 	var asd = atom1;
 	console.log(asd);
 	var arrayLength = atomdata.length;
@@ -122,7 +113,6 @@ setTimeout(function(){
 	if(pdbdir == "Knots/"){
 		jmolScript("color group;")
 		for (var i = 0; i < CALength-1; i++) {
-			//alert(myStringArray[i]);
 			if(CA[i].name == "CA"){
 				if(CA[i].element == "carbon"){	
 					jmolScript("connect (atomno="+CA[i].atomno+") (atomno="+CA[(i+1)].atomno+") SINGLE;")
@@ -133,7 +123,6 @@ setTimeout(function(){
 	}
 	if(pdbdir == "Slipknots/"){
 		for (var i = 0; i < CALength-1; i++) {
-			//alert(myStringArray[i]);
 			if(CA[i].name == "CA"){
 				if(CA[i].resno >= knotProt[1] && CA[i].resno <= knotProt[3]){
 					if(CA[i].element == "carbon"){	
@@ -148,7 +137,6 @@ setTimeout(function(){
 	if(pdbdir == "PDB/"){
 		jmolScript("color group;")
 	}
-	//jmolScript("color group");
 }, 400);
 function redirectTo() {
 	var win = window.open(window.location.href+pdbdir+pdbID[0]+".pdb", '_blank');
@@ -157,9 +145,7 @@ function redirectTo() {
 	}else{
 		alert('Please allow popups for this site');
 	}
-}	
-//}
-
+}
 </script>
 </td><td>
 </td></tr>
@@ -167,21 +153,16 @@ function redirectTo() {
 <td></td>
 <td align=center>
 <script>
-jmolBr()
 Jmol.setButtonCss(null,"style='width:180px'")
-jmolButton("color cpk")
-jmolButton("color group")
-jmolButton("color amino")
-//jmolButton("color white; trace ONLY;wireframe 0.15,ball&stick; restrict *.ca")
-jmolBr()
 jmolButton("background white")
 jmolButton("background black")
+jmolBr()
 </script>
 <button onclick="redirectTo()">Download PDB!</button>
 </td></tr></table>
 <script>
 </script>
-<div id="demo" style="float: center;text-align: center;" >]
+<div id="demo" style="text-align: center;" >]
 	<script>
 		printData();
 	</script>	

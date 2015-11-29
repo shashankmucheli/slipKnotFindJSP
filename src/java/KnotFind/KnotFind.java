@@ -37,7 +37,7 @@ public class KnotFind {
    static String Knotfind_PDB = "G:\\Shashank\\Dropbox\\UMassD\\CIS 690\\KnotFind\\Knots\\Solution\\Knots\\", Slipknotfind_PDB = "G:\\Shashank\\Dropbox\\UMassD\\CIS 690\\KnotFind\\Knots\\Solution\\Slipknots\\";
    static String PATH="G:\\Shashank\\Dropbox\\UMassD\\CIS 690\\KnotFind\\Knots\\Solution\\PDB\\";     //the path of your pdb file.     e.g. PATH="PDB/";
    //static String PDB="1ALK_A.pdb", chain="A";
-   static String PDB,chain="A";
+   static String PDB,chain;
    int first_atom,last_atom = 0;
    ArrayList katomlist = new ArrayList<>();
    ArrayList satomlist = new ArrayList<>();
@@ -66,6 +66,9 @@ public class KnotFind {
             String[] s=temp.split("\\s+");
             if(s[0].equals("ATOM"))
                if(s[2].equals("CA")){
+                   if(chain.isEmpty()){
+                       chain = s[4];
+                   }
                    if(s[4].equals(chain)){
                        if(first_atom == 0) { first_atom = Integer.parseInt(s[5]); }
                   Res r=new Res();
@@ -83,13 +86,7 @@ public class KnotFind {
          e.printStackTrace();
       }
       System.out.println("residual.size=" + res.size());
-//      System.out.println("*****"+res.size()+" CA information**********");
-//      for(int i=0;i<res.size();i++){
-//         System.out.println(res.get(i).index+":\t"+res.get(i).x+"\t"+res.get(i).y+"\t"+res.get(i).z);
-//      }
-//      System.out.println("***************************************");
         String s = slipknotFind(res);
-        /*Remove this to get the log of all residues*/
         return s;
    }
    
@@ -190,7 +187,6 @@ public class KnotFind {
                 }
                 System.out.println(list);
                 satomlist = list;
-                //pdb_slipknotfind(list);
             }
          }
          
@@ -215,7 +211,6 @@ public class KnotFind {
                     }
                     System.out.println(list);
                     satomlist = list;
-                    //pdb_slipknotfind(list);
                 }
             }
          }
@@ -223,6 +218,7 @@ public class KnotFind {
          if(_knotInR == true && _knotInRes == false){
             System.out.println("find a slipknot: k3="+k3+"  k2="+k2+"  k1="+ k1);
             str="Slipknots/";
+            System.out.println("Chain: "+chain);
             pdb_slipknotfind(satomlist);
             System.out.println(str);
             String tmp = Knotfind_PDB+PDB;
@@ -233,6 +229,7 @@ public class KnotFind {
          }
          else{
             System.out.println("this chain has a knot between "+ k3+ " and "+k2);
+            System.out.println("Chain: "+chain);
             str="Knots/";
             System.out.println(str);
             pdb_knotfind(katomlist);
@@ -245,6 +242,7 @@ public class KnotFind {
       }
       else{
          System.out.println("no knots, no slipknots");
+         System.out.println("Chain: "+chain);
          str="PDB/";
          System.out.println(str);
          res.clear();

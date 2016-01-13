@@ -1,0 +1,10 @@
+1: Protein Data Bank: https://en.wikipedia.org/wiki/Protein_Data_Bank
+2: X-ray Crystallography: http://chemwiki.ucdavis.edu/Analytical_Chemistry/Instrumental_Analysis/Diffraction/X-ray_Crystallography
+3: NMR Spectroscopy: http://chem.ch.huji.ac.il/nmr/whatisnmr/whatisnmr.html
+4: Cryo-electron microscopy: http://www.ncbi.nlm.nih.gov/pmc/articles/PMC3537914/ (Article)
+5: RCSB website: http://www.rcsb.org/
+6: SEQRES: http://www.rcsb.org/pdb/101/static101.do?p=education_discussion/Looking-at-Structures/sequence.html
+7: RCSB PDB Specifications: http://deposit.rcsb.org/adit/docs/pdb_atom_format.html
+8: Java ArrayList: https://docs.oracle.com/javase/7/docs/api/java/util/ArrayList.html
+9: PyMol: https://www.pymol.org/
+10: Jmol/JSmol: http://jmol.sourceforge.net/ 

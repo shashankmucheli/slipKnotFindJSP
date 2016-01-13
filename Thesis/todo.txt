@@ -1,0 +1,22 @@
+-> Document about proteins and protein folding.
+-> Explain Scipting tools we have used. 
+	- Importance of protein visulazation 
+	- PyMol
+	- JSMol
+	- JSP
+-> Replated work.
+	- Knotprot.
+	- Identification of Rare Slipknots in Proteins and Their Implications for Stability and Folding - Science Direct paper. 
+	- Knotting pathways in proteins. 
+	- knots.mit.edu
+-> Knotfind - in depth.
+	- how to detect knots using knotfind. 
+	- limitations. 
+-> Slipknotfind - in depth.
+	- What are slipknots.
+	- how to detect them.
+	- how to visualize them. 
+		- Visualizing locally using PyMol.
+		- Visualizing on the server using JSMol. 
+	- how effiecient the algorithm is
+	- JSMol Scipts.
